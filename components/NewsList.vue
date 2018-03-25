@@ -1,45 +1,39 @@
 <template lang="pug">
   .news-list
-    .news-list__batch
-      .news-list__item(
-        v-for="itemNews in news"
-        :key="itemNews.id"
-      )
-        NewsListItem(
-          :item="itemNews"
-        )
+    NewsListBatch.news-list__batch(
+      v-for="(batch, index) in batches"
+      :batch="batch"
+      :viewType="index % 2 === 0 ? 'left' : 'right'"
+      :key="index"
+    )
 </template>
 
 <script>
-import NewsListItem from '@/components/NewsListItem';
+import NewsListBatch from '@/components/NewsListBatch';
 
 export default {
-  components: { NewsListItem },
   props: {
     news: {
       type: Array,
       required: true
+    }
+  },
+  components: { NewsListBatch, },
+  computed: {
+    batches() {
+      return this.news.reduce((result, item, index) => {
+        if (index % 5 === 0) {
+          result.push([]);
+        }
+        result[result.length - 1].push(item);
+        return result;
+      }, []);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.news-list__batch {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.news-list__item {
-  padding: 0 15px;
-  margin-bottom: 30px;
-  width: 33.33%;
-
-  &:first-child {
-    width: 66.66%;
-  }
-}
 </style>
 
 

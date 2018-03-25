@@ -1,5 +1,5 @@
 <template lang="pug">
-  .layout
+  main.layout
     nuxt
 </template>
 
