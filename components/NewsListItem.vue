@@ -2,6 +2,7 @@
   article.news-item
     a.news-item__rubric(
       :href="item.rubric_url"
+      :class="rubricColorModifier"
     )
       | {{ item.rubric }}
     .news-item__thumb(
@@ -47,6 +48,32 @@ export default {
   computed: {
     announce() {
       return this.item.announce.replace(/(?:\r\n|\\r\\n|\r|\n)/g, '<br />');
+    },
+    rubricColorModifier() {
+      const category = this.item.rubric_url.split('/').pop();
+      if (
+        [
+          'torgovye-rekomendacii',
+          'investidei',
+          'srednesrochnye-trendy'
+        ].indexOf(category) !== -1
+      ) {
+        return 'news-item__rubric--yellow';
+      }
+      if (['tehanaliz'].indexOf(category) !== -1) {
+        return 'news-item__rubric--blue';
+      }
+      if (
+        [
+          'mirovye-rynki',
+          'valyutnyy-rynok',
+          'rossiyskiy-rynok',
+          'rynok-nefti'
+        ].indexOf(category) !== -1
+      ) {
+        return 'news-item__rubric--green';
+      }
+      return '';
     }
   }
 };
@@ -74,6 +101,31 @@ export default {
   position: absolute;
   top: 24px;
   left: 24px;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #2b2b51;
+  background-color: #fff;
+  z-index: 999;
+
+  &--blue {
+    color: #fff;
+    background-color: #0073f0;
+  }
+  &--green {
+    color: #fff;
+    background-color: #4ed669;
+  }
+  &--yellow {
+    color: #fff;
+    background-color: #f0b500;
+  }
 }
 
 .news-item__thumb {
@@ -115,7 +167,7 @@ export default {
 }
 
 .news-item__footer {
-  display: flex;
+  display: none;
   margin-top: auto;
   padding: 20px 25px;
   border-top: 1px solid #f2f2f2;
