@@ -10,7 +10,7 @@
     .news-item__content
       h2.news-item__title
         a(:href="item.article_url") {{ item.title }}
-      div.news-item__announce(v-html="item.announce")
+      div.news-item__announce(v-html="announce")
     .news-item__footer
       .news-item__meta
         IconBase(
@@ -40,6 +40,11 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    announce() {
+      return this.item.announce.replace(/(?:\r\n|\\r\\n|\r|\n)/g, '<br />');
     }
   }
 };
