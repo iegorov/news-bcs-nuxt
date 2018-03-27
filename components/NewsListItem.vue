@@ -25,6 +25,8 @@
           IconQuestion
         span {{ item.comment_count }}
       .news-item__meta.news-item__meta--publish
+        IconBase(icon-name="clock")
+          IconClock
         span {{ item.publish_date }}
 </template>
 
@@ -76,12 +78,8 @@ export default {
 
 .news-item__thumb {
   flex-grow: 1;
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    visibility: hidden;
-  }
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .news-item__content {
@@ -96,6 +94,7 @@ export default {
   font-weight: 700;
   line-height: 22px;
   color: #2b2b51;
+  word-wrap: break-word;
   a {
     text-decoration: none;
     color: #2b2b51;
@@ -111,21 +110,32 @@ export default {
   }
 }
 
+.news-item__announce {
+  word-wrap: break-word;
+}
+
 .news-item__footer {
-  display: none;
+  display: flex;
   margin-top: auto;
   padding: 20px 25px;
   border-top: 1px solid #f2f2f2;
   font-size: 11px;
-  color: #9b9b9c;
 }
 
 .news-item__meta {
+  font-style: 11px;
+  line-height: 20px;
+  color: #9b9b9c;
+
   & + & {
     margin-left: 20px;
     &--publish {
       margin-left: auto;
     }
+  }
+
+  svg {
+    margin-right: 5px;
   }
 }
 </style>
