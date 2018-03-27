@@ -2,7 +2,7 @@
   article.news-item
     a.news-item__rubric(
       :href="item.rubric_url"
-      :class="rubricColorModifier"
+      :class="`news-item__rubric--${categoryName}`"
     )
       | {{ item.rubric }}
     .news-item__thumb(
@@ -49,31 +49,8 @@ export default {
     announce() {
       return this.item.announce.replace(/(?:\r\n|\\r\\n|\r|\n)/g, '<br />');
     },
-    rubricColorModifier() {
-      const category = this.item.rubric_url.split('/').pop();
-      if (
-        [
-          'torgovye-rekomendacii',
-          'investidei',
-          'srednesrochnye-trendy'
-        ].indexOf(category) !== -1
-      ) {
-        return 'news-item__rubric--yellow';
-      }
-      if (['tehanaliz'].indexOf(category) !== -1) {
-        return 'news-item__rubric--blue';
-      }
-      if (
-        [
-          'mirovye-rynki',
-          'valyutnyy-rynok',
-          'rossiyskiy-rynok',
-          'rynok-nefti'
-        ].indexOf(category) !== -1
-      ) {
-        return 'news-item__rubric--green';
-      }
-      return '';
+    categoryName() {
+      return this.item.rubric_url.split('/').pop();
     }
   }
 };
@@ -114,15 +91,20 @@ export default {
   background-color: #fff;
   z-index: 999;
 
-  &--blue {
+  &--tehanaliz {
     color: #fff;
     background-color: #0073f0;
   }
-  &--green {
+  &--mirovye-rynki,
+  &--valyutnyy-rynok,
+  &--rossiyskiy-rynok,
+  &--rynok-nefti {
     color: #fff;
     background-color: #4ed669;
   }
-  &--yellow {
+  &--torgovye-rekomendacii,
+  &--investidei,
+  &--srednesrochnye-trendy {
     color: #fff;
     background-color: #f0b500;
   }
