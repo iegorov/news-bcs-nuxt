@@ -1,6 +1,6 @@
 <template lang="pug">
   article.news-item
-    NewsListItemRubric(
+    RubricTag(
       :text="item.rubric",
       :url="item.rubric_url"
     )
@@ -35,7 +35,7 @@ import IconBase from '@/components/IconBase';
 import IconClock from '@/components/icons/IconClock';
 import IconEye from '@/components/icons/IconEye';
 import IconQuestion from '@/components/icons/IconQuestion';
-import NewsListItemRubric from '@/components/NewsListItemRubric';
+import RubricTag from '@/components/RubricTag';
 
 export default {
   components: {
@@ -43,7 +43,7 @@ export default {
     IconClock,
     IconEye,
     IconQuestion,
-    NewsListItemRubric
+    RubricTag
   },
   props: {
     item: {
