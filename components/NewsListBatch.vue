@@ -1,5 +1,5 @@
 <template lang="pug">
-  .batch(:class="`bach--${viewType}`")
+  .batch(:class="`batch--${viewType}`")
     .batch__item(
       v-for="(itemNews, index) in batch"
       :key="itemNews.id"
@@ -8,18 +8,18 @@
         :item="itemNews"
         v-if="index===0"
       )
-      NewsListItem(
+      NewsItem(
         :item="itemNews"
         v-else
       )
 </template>
 
 <script>
-import NewsListItem from '@/components/NewsListItem';
+import NewsItem from '@/components/NewsItem';
 import NewsListFilledItem from '@/components/NewsListFilledItem';
 
 export default {
-  components: { NewsListItem, NewsListFilledItem },
+  components: { NewsItem, NewsListFilledItem },
   props: {
     batch: {
       type: Array,
@@ -42,6 +42,12 @@ export default {
   flex-wrap: wrap;
   margin-left: -15px;
   margin-right: -15px;
+
+  &--right {
+    .batch__item:nth-child(2) {
+      order: -1;
+    }
+  }
 }
 
 .batch__item {
