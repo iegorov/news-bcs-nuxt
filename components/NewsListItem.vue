@@ -1,10 +1,9 @@
 <template lang="pug">
   article.news-item
-    a.news-item__rubric(
-      :href="item.rubric_url"
-      :class="`news-item__rubric--${categoryName}`"
+    NewsListItemRubric(
+      :text="item.rubric",
+      :url="item.rubric_url"
     )
-      | {{ item.rubric }}
     .news-item__thumb(
       :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
     )
@@ -36,9 +35,16 @@ import IconBase from '@/components/IconBase';
 import IconClock from '@/components/icons/IconClock';
 import IconEye from '@/components/icons/IconEye';
 import IconQuestion from '@/components/icons/IconQuestion';
+import NewsListItemRubric from '@/components/NewsListItemRubric';
 
 export default {
-  components: { IconBase, IconClock, IconEye, IconQuestion },
+  components: {
+    IconBase,
+    IconClock,
+    IconEye,
+    IconQuestion,
+    NewsListItemRubric
+  },
   props: {
     item: {
       type: Object,
@@ -48,9 +54,6 @@ export default {
   computed: {
     announce() {
       return this.item.announce.replace(/(?:\r\n|\\r\\n|\r|\n)/g, '<br />');
-    },
-    categoryName() {
-      return this.item.rubric_url.split('/').pop();
     }
   }
 };
@@ -65,48 +68,11 @@ export default {
   min-height: 380px;
   border-radius: 4px;
   background-color: #fff;
-  cursor: pointer;
 
   &:hover {
     .news-item__footer {
       display: flex;
     }
-  }
-}
-
-.news-item__rubric {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  display: inline-block;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 10px;
-  line-height: 1.2;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #2b2b51;
-  background-color: #fff;
-  z-index: 999;
-
-  &--tehanaliz {
-    color: #fff;
-    background-color: #0073f0;
-  }
-  &--mirovye-rynki,
-  &--valyutnyy-rynok,
-  &--rossiyskiy-rynok,
-  &--rynok-nefti {
-    color: #fff;
-    background-color: #4ed669;
-  }
-  &--torgovye-rekomendacii,
-  &--investidei,
-  &--srednesrochnye-trendy {
-    color: #fff;
-    background-color: #f0b500;
   }
 }
 
