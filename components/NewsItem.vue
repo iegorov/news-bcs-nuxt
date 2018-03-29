@@ -28,7 +28,7 @@
       .news-item__meta.news-item__meta--publish
         IconBase(icon-name="clock")
           IconClock
-        span {{ item.publish_date }}
+        span {{ item.publish_date | fromNow }}
 </template>
 
 <script>
