@@ -2,12 +2,12 @@
   article.news-item(
     :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
   )
+    .news-item__rubric
+      RubricTag(
+        :text="item.rubric",
+        :url="item.rubric_url"
+      )
     .news-item__card
-      .news-item__rubric
-        RubricTag(
-          :text="item.rubric",
-          :url="item.rubric_url"
-        )
       .news-item__content
         h2.news-item__title
           a(:href="item.article_url") {{ item.title }}
@@ -74,11 +74,6 @@ export default {
     background-color: #2b2b51;
     opacity: 0.5;
     filter: alpha(Opacity=50);
-
-    &:hover {
-      opacity: 0.8;
-      filter: alpha(Opacity=80);
-    }
   }
 }
 
@@ -92,6 +87,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  &:hover {
+    background-color: #2b2b51;
+    opacity: 0.7;
+    filter: alpha(Opacity=70);
+    border-radius: 4px;
+  }
 }
 
 .news-item__rubric {
