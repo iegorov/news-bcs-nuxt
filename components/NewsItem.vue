@@ -131,7 +131,7 @@ export default {
 }
 
 .news-item__meta {
-  font-style: 11px;
+  font-size: 11px;
   line-height: 20px;
   color: #9b9b9c;
 

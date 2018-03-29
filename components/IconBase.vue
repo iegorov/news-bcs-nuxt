@@ -1,12 +1,16 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg"
+  <svg
     :width="width"
     :height="height"
     :viewBox="viewBox"
     :aria-labelledby="iconName"
-    role="presentation"
-  >
-    <title :id="iconName" lang="en">{{iconName}} icon</title>
+    xmlns="http://www.w3.org/2000/svg"
+    role="presentation">
+    <title
+      :id="iconName"
+      lang="en">
+      {{ iconName }} icon
+    </title>
     <g :fill="iconColor">
       <slot />
     </g>

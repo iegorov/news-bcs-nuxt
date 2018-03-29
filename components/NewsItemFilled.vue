@@ -139,7 +139,7 @@ export default {
 
 .news-item__meta {
   font-weight: 700;
-  font-style: 11px;
+  font-size: 11px;
   color: #fff;
 
   & + & {

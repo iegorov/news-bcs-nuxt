@@ -12,13 +12,13 @@
 import NewsListBatch from '@/components/NewsListBatch';
 
 export default {
+  components: { NewsListBatch, },
   props: {
     news: {
       type: Array,
       required: true
     }
   },
-  components: { NewsListBatch, },
   computed: {
     batches() {
       return this.news.reduce((result, item, index) => {
