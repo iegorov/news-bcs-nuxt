@@ -2,12 +2,12 @@
   article.news-item(
     :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
   )
-    .news-item__rubric
-      RubricTag(
-        :text="item.rubric",
-        :url="item.rubric_url"
-      )
     .news-item__card
+      .news-item__rubric
+        RubricTag(
+          :text="item.rubric",
+          :url="item.rubric_url"
+        )
       .news-item__content
         h2.news-item__title
           a(:href="item.article_url") {{ item.title }}
@@ -58,13 +58,9 @@ export default {
 <style lang="scss" scoped>
 .news-item {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   height: 100%;
   min-height: 380px;
   border-radius: 4px;
-  background-color: #fff;
 
   &:before {
     content: '';
@@ -77,13 +73,25 @@ export default {
     border-radius: 4px;
     background-color: #2b2b51;
     opacity: 0.5;
-    filter: alpha(Opacity=50); /* Прозрачность в IE */
+    filter: alpha(Opacity=50);
+
+    &:hover {
+      opacity: 0.8;
+      filter: alpha(Opacity=80);
+    }
   }
 }
 
 .news-item__card {
   position: absolute;
   z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .news-item__rubric {
@@ -116,7 +124,7 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 3;
     }
   }
 }
