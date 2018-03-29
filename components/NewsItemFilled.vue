@@ -1,34 +1,34 @@
 <template lang="pug">
-  article.news-item
+  article.news-item(
+    :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
+  )
     .news-item__rubric
       RubricTag(
         :text="item.rubric",
         :url="item.rubric_url"
       )
-    .news-item__thumb(
-      :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-    )
-    .news-item__content
-      h2.news-item__title
-        a(:href="item.article_url") {{ item.title }}
-      div.news-item__announce(v-html="announce")
-    .news-item__footer
-      .news-item__meta
-        IconBase(
-          icon-name="eye"
-          width="16"
-          view-box="0 0 41 28"
-        )
-          IconEye
-        span {{ item.view_count }}
-      .news-item__meta
-        IconBase(icon-name="question")
-          IconQuestion
-        span {{ item.comment_count }}
-      .news-item__meta.news-item__meta--publish
-        IconBase(icon-name="clock")
-          IconClock
-        span {{ item.publish_date }}
+    .news-item__card
+      .news-item__content
+        h2.news-item__title
+          a(:href="item.article_url") {{ item.title }}
+      .news-item__footer
+        .news-item__meta
+          IconBase(
+            icon-name="eye"
+            width="16"
+            view-box="0 0 41 28"
+            iconColor="#fff"
+          )
+            IconEye
+          span {{ item.view_count }}
+        .news-item__meta
+          IconBase(icon-name="question" iconColor="#fff")
+            IconQuestion
+          span {{ item.comment_count }}
+        .news-item__meta.news-item__meta--publish
+          IconBase(icon-name="clock" iconColor="#fff")
+            IconClock
+          span {{ item.publish_date }}
 </template>
 
 <script>
@@ -51,11 +51,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  computed: {
-    announce() {
-      return this.item.announce.replace(/(?:\r\n|\\r\\n|\r|\n)/g, '<br />');
-    }
   }
 };
 </script>
@@ -65,16 +60,30 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   height: 100%;
   min-height: 380px;
   border-radius: 4px;
   background-color: #fff;
 
-  &:hover {
-    .news-item__footer {
-      display: flex;
-    }
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 4px;
+    background-color: #2b2b51;
+    opacity: 0.5;
+    filter: alpha(Opacity=50); /* Прозрачность в IE */
   }
+}
+
+.news-item__card {
+  position: absolute;
+  z-index: 2;
 }
 
 .news-item__rubric {
@@ -84,28 +93,22 @@ export default {
   z-index: 5;
 }
 
-.news-item__thumb {
-  flex-grow: 1;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
 .news-item__content {
+  margin-bottom: 5px;
   padding: 25px;
-  line-height: 20px;
-  color: #ababab;
+  padding-bottom: 0px;
 }
 
 .news-item__title {
   margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 18px;
+  margin-bottom: 0;
+  font-size: 24px;
   font-weight: 700;
-  color: #2b2b51;
+  color: #fff;
   word-wrap: break-word;
   a {
     text-decoration: none;
-    color: #2b2b51;
+    color: #fff;
     &:before {
       content: '';
       position: absolute;
@@ -113,27 +116,21 @@ export default {
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 1;
+      z-index: 2;
     }
   }
 }
 
-.news-item__announce {
-  word-wrap: break-word;
-}
-
 .news-item__footer {
-  display: none;
-  margin-top: auto;
+  display: flex;
   padding: 20px 25px;
-  border-top: 1px solid #f2f2f2;
   font-size: 11px;
 }
 
 .news-item__meta {
+  font-weight: 700;
   font-style: 11px;
-  line-height: 20px;
-  color: #9b9b9c;
+  color: #fff;
 
   & + & {
     margin-left: 20px;
@@ -143,9 +140,7 @@ export default {
   }
 
   svg {
-    margin-right: 5px;
+    margin-right: 8px;
   }
 }
 </style>
-
-

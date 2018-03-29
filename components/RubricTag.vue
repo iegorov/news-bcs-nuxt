@@ -28,11 +28,8 @@ export default {
 
 <style lang="scss" scoped>
 .rubric {
-  position: absolute;
-  top: 24px;
-  left: 24px;
   display: inline-block;
-  padding: 5px;
+  padding: 3px 5px;
   border-radius: 4px;
   font-size: 10px;
   line-height: 1.2;
@@ -42,7 +39,6 @@ export default {
   letter-spacing: 0.1em;
   color: #2b2b51;
   background-color: #fff;
-  z-index: 999;
 
   &--tehanaliz {
     color: #fff;

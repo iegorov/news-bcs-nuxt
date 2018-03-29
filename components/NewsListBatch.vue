@@ -4,7 +4,7 @@
       v-for="(itemNews, index) in batch"
       :key="itemNews.id"
     )
-      NewsListFilledItem(
+      NewsItemFilled(
         :item="itemNews"
         v-if="index===0"
       )
@@ -16,10 +16,10 @@
 
 <script>
 import NewsItem from '@/components/NewsItem';
-import NewsListFilledItem from '@/components/NewsListFilledItem';
+import NewsItemFilled from '@/components/NewsItemFilled';
 
 export default {
-  components: { NewsItem, NewsListFilledItem },
+  components: { NewsItem, NewsItemFilled },
   props: {
     batch: {
       type: Array,
