@@ -13,3 +13,10 @@ Vue.filter('fromNow', date => {
 
   return targetDate.format('DD MMM YYYY');
 });
+
+Vue.filter('shorten', value => {
+  if (+value > 1000) {
+    return `${(+value / 1000).toFixed(2).replace('.', ',')} К`;
+  }
+  return value;
+});

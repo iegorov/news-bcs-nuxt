@@ -20,11 +20,11 @@
           view-box="0 0 41 28"
         )
           IconEye
-        span {{ item.view_count }}
+        span {{ item.view_count | shorten }}
       .news-item__meta
         IconBase(icon-name="question")
           IconQuestion
-        span {{ item.comment_count }}
+        span {{ item.comment_count | shorten }}
       .news-item__meta.news-item__meta--publish
         IconBase(icon-name="clock")
           IconClock
