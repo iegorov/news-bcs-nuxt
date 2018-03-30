@@ -88,6 +88,12 @@ export default {
     opacity: 0.5;
     filter: alpha(Opacity=50);
   }
+
+  &:hover::before {
+    opacity: 0.7;
+    filter: alpha(Opacity=70);
+    transition: opacity .2s;
+  }
 }
 
 .news-item__card {
@@ -100,13 +106,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-
-  &:hover {
-    background-color: #2b2b51;
-    opacity: 0.7;
-    filter: alpha(Opacity=70);
-    border-radius: 4px;
-  }
 }
 
 .news-item__rubric {
