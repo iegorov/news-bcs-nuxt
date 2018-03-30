@@ -16,7 +16,7 @@ Vue.filter('fromNow', date => {
 
 Vue.filter('shorten', value => {
   if (+value > 1000) {
-    return `${(+value / 1000).toFixed(2).replace('.', ',')} К`;
+    return `${(+value / 1000).toFixed(1).replace('.', ',')} К`;
   }
   return value;
 });
