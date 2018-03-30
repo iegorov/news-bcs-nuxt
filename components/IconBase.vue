@@ -41,7 +41,7 @@ export default {
       default: '#9b9b9c'
     }
   }
-}
+};
 </script>
 
 <style scoped>
