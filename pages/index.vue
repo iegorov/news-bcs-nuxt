@@ -1,11 +1,14 @@
-<template lang="pug">
-  section.news-page
-    h1.news-page__title Новости БКС Экспресс
-    .news-page__content
-      NewsList(:news="news")
-      AppButton(@click.native="showMoreNews")
-        span(v-if="loading") загрузка...
-        span(v-else) Показать ещё
+<template>
+  <section class="news-page">
+    <h1 class="news-page__title">Новости БКС Экспресс</h1>
+    <div class="news-page__content">
+      <NewsList :news="news" />
+      <AppButton @click.native="showMoreNews">
+        <span v-if="loading">загрузка...</span>
+        <span v-else>Показать ещё</span>
+      </AppButton>
+    </div>
+  </section>
 </template>
 
 <script>
