@@ -1,34 +1,45 @@
-<template lang="pug">
-  article.news-item(
-    :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-  )
-    .news-item__rubric
-      RubricTag(
-        :text="item.rubric",
-        :url="item.rubric_url"
-      )
-    .news-item__card
-      .news-item__content
-        h2.news-item__title
-          a(:href="item.article_url") {{ item.title }}
-      .news-item__footer
-        .news-item__meta
-          IconBase(
+<template>
+  <article
+    :style="{ backgroundImage: `url(${item.big_image_url})` }"
+    class="news-item">
+    <div class="news-item__rubric">
+      <RubricTag
+        :text="item.rubric"
+        :url="item.rubric_url"/>
+    </div>
+    <div class="news-item__card">
+      <div class="news-item__content">
+        <h2 class="news-item__title">
+          <a :href="item.article_url">{{ item.title }}</a>
+        </h2>
+      </div>
+      <div class="news-item__footer">
+        <div class="news-item__meta">
+          <IconBase
             icon-name="eye"
             width="16"
             view-box="0 0 41 28"
-            iconColor="#fff"
-          )
-            IconEye
-          span {{ item.view_count | shorten }}
-        .news-item__meta
-          IconBase(icon-name="question" iconColor="#fff")
-            IconQuestion
-          span {{ item.comment_count | shorten }}
-        .news-item__meta.news-item__meta--publish
-          IconBase(icon-name="clock" iconColor="#fff")
-            IconClock
-          span {{ item.publish_date | fromNow }}
+            icon-color="#fff">
+            <IconEye/>
+          </IconBase><span>{{ item.view_count | shorten }}</span>
+        </div>
+        <div class="news-item__meta">
+          <IconBase
+            icon-name="question"
+            icon-color="#fff">
+            <IconQuestion/>
+          </IconBase><span>{{ item.comment_count | shorten }}</span>
+        </div>
+        <div class="news-item__meta news-item__meta--publish">
+          <IconBase
+            icon-name="clock"
+            icon-color="#fff">
+            <IconClock/>
+          </IconBase><span>{{ item.publish_date | fromNow }}</span>
+        </div>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
@@ -61,6 +72,8 @@ export default {
   height: 100%;
   min-height: 380px;
   border-radius: 4px;
+  background-size: cover;
+  background-position: center;
 
   &:before {
     content: '';

@@ -1,34 +1,42 @@
-<template lang="pug">
-  article.news-item
-    .news-item__rubric
-      RubricTag(
-        :text="item.rubric",
-        :url="item.rubric_url"
-      )
-    .news-item__thumb(
-      :style="{ backgroundImage: `url(${item.big_image_url})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-    )
-    .news-item__content
-      h2.news-item__title
-        a(:href="item.article_url") {{ item.title }}
-      div.news-item__announce(v-html="announce")
-    .news-item__footer
-      .news-item__meta
-        IconBase(
+<template>
+  <article class="news-item">
+    <div class="news-item__rubric">
+      <RubricTag
+        :text="item.rubric"
+        :url="item.rubric_url" />
+    </div>
+    <div
+      :style="{ backgroundImage: `url(${item.big_image_url})` }"
+      class="news-item__thumb" />
+    <div class="news-item__content">
+      <h2 class="news-item__title">
+        <a :href="item.article_url">{{ item.title }}</a>
+      </h2>
+      <div
+        class="news-item__announce"
+        v-html="announce"/>
+    </div>
+    <div class="news-item__footer">
+      <div class="news-item__meta">
+        <IconBase
           icon-name="eye"
           width="16"
-          view-box="0 0 41 28"
-        )
-          IconEye
-        span {{ item.view_count | shorten }}
-      .news-item__meta
-        IconBase(icon-name="question")
-          IconQuestion
-        span {{ item.comment_count | shorten }}
-      .news-item__meta.news-item__meta--publish
-        IconBase(icon-name="clock")
-          IconClock
-        span {{ item.publish_date | fromNow }}
+          view-box="0 0 41 28">
+          <IconEye/>
+        </IconBase><span>{{ item.view_count | shorten }}</span>
+      </div>
+      <div class="news-item__meta">
+        <IconBase icon-name="question">
+          <IconQuestion/>
+        </IconBase><span>{{ item.comment_count | shorten }}</span>
+      </div>
+      <div class="news-item__meta news-item__meta--publish">
+        <IconBase icon-name="clock">
+          <IconClock/>
+        </IconBase><span>{{ item.publish_date | fromNow }}</span>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
@@ -88,6 +96,8 @@ export default {
   flex-grow: 1;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  background-size: cover;
+  background-position: center;
 }
 
 .news-item__content {
