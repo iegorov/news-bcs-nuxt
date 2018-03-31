@@ -1,26 +1,35 @@
-<template lang="pug">
-  .batch(:class="`batch--${viewType}`")
-    .batch__item(
+<template>
+  <div
+    :class="`batch--${viewType}`"
+    class="batch">
+    <div
       v-for="(itemNews, index) in batch"
       :key="itemNews.id"
-    )
-      NewsItemFilled(
-        :item="itemNews"
+      class="batch__item">
+      <NewsItemFilled
         v-if="index===0"
-      )
-      NewsItem(
-        :item="itemNews"
+        :item="itemNews"/>
+      <NewsItem
         v-else
-      )
+        :item="itemNews"/>
+    </div>
+  </div>
 </template>
 
 <script>
 import NewsItem from '@/components/NewsItem';
 import NewsItemFilled from '@/components/NewsItemFilled';
 
+/**
+ * Порция новостей (1 страница)
+ * @typedef {Array} Batch - Список новостей
+ */
 export default {
   components: { NewsItem, NewsItemFilled },
   props: {
+    /**
+     * @type {Batch}
+     */
     batch: {
       type: Array,
       required: true
