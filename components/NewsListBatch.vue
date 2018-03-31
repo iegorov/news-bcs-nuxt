@@ -20,20 +20,23 @@
 import NewsItem from '@/components/NewsItem';
 import NewsItemFilled from '@/components/NewsItemFilled';
 
-/**
- * Порция новостей (1 страница)
- * @typedef {Array} Batch - Список новостей
- */
 export default {
   components: { NewsItem, NewsItemFilled },
   props: {
     /**
-     * @type {Batch}
+     * Порция новостей (1 страница)
+     * @type {Array}
      */
     batch: {
       type: Array,
       required: true
     },
+    /**
+     * Тип отображения страницы новостей
+     * left - главная новость слева
+     * right - главная новость справа
+     * @type {string} - 'left' или 'right'
+     */
     viewType: {
       type: String,
       default: 'left',
