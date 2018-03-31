@@ -49,6 +49,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'scss/variables';
+
 .batch {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +59,9 @@ export default {
 
   &--right {
     .batch__item:nth-child(2) {
-      order: -1;
+      @media (min-width: $tablet) {
+        order: -1;
+      }
     }
   }
 }
@@ -65,10 +69,19 @@ export default {
 .batch__item {
   padding: 0 15px;
   margin-bottom: 30px;
-  width: 33.33%;
+  width: 100%;
+  @media (min-width: $mobile) {
+    width: 50%;
+  }
+  @media (min-width: $tablet) {
+    width: 33.33%;
+  }
 
   &:first-child {
-    width: 66.66%;
+    width: 100%;
+    @media (min-width: $tablet) {
+      width: 66.66%;
+    }
   }
 }
 </style>

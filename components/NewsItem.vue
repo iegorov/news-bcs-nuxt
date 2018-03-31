@@ -98,6 +98,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'scss/variables';
+
 .news-item {
   position: relative;
   display: flex;
@@ -161,6 +163,9 @@ export default {
   padding: 20px 25px;
   border-top: 1px solid #f2f2f2;
   font-size: 11px;
+  @media (max-width: $tablet - 1) {
+    display: flex !important; // чтобы футер на мобиле и планшете был виден всегда
+  }
 }
 
 .news-item__meta {
