@@ -1,5 +1,9 @@
 <template>
-  <article class="news-item">
+  <article
+    class="news-item"
+    @mouseover="isVisibleFooter = true"
+    @mouseleave="isVisibleFooter = false"
+  >
     <div class="news-item__rubric">
       <RubricTag
         :text="item.rubric"
@@ -16,26 +20,30 @@
         class="news-item__announce"
         v-html="announce"/>
     </div>
-    <div class="news-item__footer">
-      <div class="news-item__meta">
-        <IconBase
-          icon-name="eye"
-          width="16"
-          view-box="0 0 41 28">
-          <IconEye/>
-        </IconBase><span>{{ item.view_count | shorten }}</span>
+    <transition name="fade">
+      <div
+        v-show="isVisibleFooter"
+        class="news-item__footer">
+        <div class="news-item__meta">
+          <IconBase
+            icon-name="eye"
+            width="16"
+            view-box="0 0 41 28">
+            <IconEye/>
+          </IconBase><span>{{ item.view_count | shorten }}</span>
+        </div>
+        <div class="news-item__meta">
+          <IconBase icon-name="question">
+            <IconQuestion/>
+          </IconBase><span>{{ item.comment_count | shorten }}</span>
+        </div>
+        <div class="news-item__meta news-item__meta--publish">
+          <IconBase icon-name="clock">
+            <IconClock/>
+          </IconBase><span>{{ item.publish_date | fromNow }}</span>
+        </div>
       </div>
-      <div class="news-item__meta">
-        <IconBase icon-name="question">
-          <IconQuestion/>
-        </IconBase><span>{{ item.comment_count | shorten }}</span>
-      </div>
-      <div class="news-item__meta news-item__meta--publish">
-        <IconBase icon-name="clock">
-          <IconClock/>
-        </IconBase><span>{{ item.publish_date | fromNow }}</span>
-      </div>
-    </div>
+    </transition>
   </article>
 </template>
 
@@ -46,6 +54,19 @@ import IconEye from '@/components/icons/IconEye';
 import IconQuestion from '@/components/icons/IconQuestion';
 import RubricTag from '@/components/RubricTag';
 
+/**
+ * Новость
+ * @typedef {Object} NewsItem
+ * @property {Date} publish_date
+ * @property {string} title
+ * @property {string} announce
+ * @property {string} article_url
+ * @property {string} rubric
+ * @property {string} rubric_url
+ * @property {string} big_image_url
+ * @property {number} view_count
+ * @property {number} comment_count
+ */
 export default {
   components: {
     IconBase,
@@ -54,11 +75,19 @@ export default {
     IconQuestion,
     RubricTag
   },
+  /**
+   * @type {NewsItem}
+   */
   props: {
     item: {
       type: Object,
       required: true
     }
+  },
+  data() {
+    return {
+      isVisibleFooter: false
+    };
   },
   computed: {
     announce() {
@@ -77,12 +106,6 @@ export default {
   min-height: 380px;
   border-radius: 4px;
   background-color: #fff;
-
-  &:hover {
-    .news-item__footer {
-      display: flex;
-    }
-  }
 }
 
 .news-item__rubric {
@@ -133,7 +156,7 @@ export default {
 }
 
 .news-item__footer {
-  display: none;
+  display: flex;
   margin-top: auto;
   padding: 20px 25px;
   border-top: 1px solid #f2f2f2;
@@ -155,6 +178,15 @@ export default {
   svg {
     margin-right: 5px;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
 
