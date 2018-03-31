@@ -49,6 +49,18 @@ import IconEye from '@/components/icons/IconEye';
 import IconQuestion from '@/components/icons/IconQuestion';
 import RubricTag from '@/components/RubricTag';
 
+/**
+ * Новость
+ * @typedef {Object} NewsItemFilled
+ * @property {Date} publish_date
+ * @property {string} title
+ * @property {string} article_url
+ * @property {string} rubric
+ * @property {string} rubric_url
+ * @property {string} big_image_url
+ * @property {number} view_count
+ * @property {number} comment_count
+ */
 export default {
   components: {
     IconBase,
@@ -58,6 +70,9 @@ export default {
     RubricTag
   },
   props: {
+    /**
+     * @type {NewsItemFilled}
+     */
     item: {
       type: Object,
       required: true

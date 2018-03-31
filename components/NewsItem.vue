@@ -75,10 +75,10 @@ export default {
     IconQuestion,
     RubricTag
   },
-  /**
-   * @type {NewsItem}
-   */
   props: {
+    /**
+     * @type {NewsItem}
+     */
     item: {
       type: Object,
       required: true
