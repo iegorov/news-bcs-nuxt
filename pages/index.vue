@@ -45,9 +45,6 @@ export default {
       this.loading = false;
     },
     preloadhNews() {
-      if (this.$store.getters['News/preloadedNews'].length) {
-        return;
-      }
       const nextPageNumber = this.currentPageNumber + 1;
       this.$store.dispatch('News/prefetchNews', nextPageNumber);
     }

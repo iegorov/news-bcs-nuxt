@@ -1,8 +1,10 @@
+import Vue from 'vue';
+
 export default {
   state() {
     return {
       news: [],
-      preloadedNews: []
+      preloadedNews: {}
     };
   },
   getters: {
@@ -13,46 +15,56 @@ export default {
     addNews(state, news) {
       state.news.push(...news);
     },
-    addPreloadedNews(state, news) {
-      state.preloadedNews.push(...news);
+    addPreloadedNews(state, { pageNumber, news }) {
+      Vue.set(state.preloadedNews, pageNumber, news);
     },
-    resetPreloadedNews(state, news) {
-      state.preloadedNews = [];
+    resetPreloadedNews(state, pageNumber) {
+      Vue.delete(state.preloadedNews, pageNumber);
     }
   },
   actions: {
-    async fetchNews({ commit, state }, pageNumber) {
-      if (state.preloadedNews.length) {
-        commit('addNews', state.preloadedNews);
-        commit('resetPreloadedNews');
+    async fetchNews(
+      { commit, dispatch, getters: { preloadedNews } },
+      pageNumber
+    ) {
+      if (hasNews(preloadedNews, pageNumber)) {
+        commit('addNews', preloadedNews[pageNumber]);
+        commit('resetPreloadedNews', pageNumber);
         return;
       }
       try {
-        const news = await this.$axios.$get('/express_articles/v1', {
-          params: {
-            text_length: 50,
-            page: pageNumber,
-            per_page: 5
-          }
-        });
+        const news = await dispatch('getNews', pageNumber);
         commit('addNews', news);
       } catch (error) {
         console.error('Ошибка получения новостей', error);
       }
     },
-    async prefetchNews({ commit }, pageNumber) {
+    async prefetchNews(
+      { commit, dispatch, getters: { preloadedNews } },
+      pageNumber
+    ) {
+      if (hasNews(preloadedNews, pageNumber)) {
+        return;
+      }
       try {
-        const news = await this.$axios.$get('/express_articles/v1', {
-          params: {
-            text_length: 50,
-            page: pageNumber,
-            per_page: 5
-          }
-        });
-        commit('addPreloadedNews', news);
+        const news = await dispatch('getNews', pageNumber);
+        commit('addPreloadedNews', { pageNumber, news });
       } catch (error) {
         console.error('Ошибка получения новостей', error);
       }
+    },
+    async getNews(context, pageNumber) {
+      return await this.$axios.$get('/express_articles/v1', {
+        params: {
+          text_length: 50,
+          page: pageNumber,
+          per_page: 5
+        }
+      });
     }
   }
 };
+
+function hasNews(news, pageNumber) {
+  return news[pageNumber] && news[pageNumber].length;
+}
